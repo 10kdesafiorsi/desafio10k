@@ -17,7 +17,7 @@ db.init_app(app)
 if __name__ == "__main__":
 	app.run(
 		host=os.environ.get('FLASK_CONFIG_HTTP_HOST', '0.0.0.0'),
-		port=int(os.environ.get('FLASK_CONFIG_HTTP_PORT', '8080')),
+		port=int(os.environ.get('FLASK_CONFIG_HTTP_PORT', '5000')),
 		threaded=False,
 		debug=True
 	)
