@@ -23,8 +23,12 @@ def get_usuario(id=None, cpf=None):
 
 	return None
 
-# ToDo
 def update_usuario(usuario, cpf=None, nome=None, sobrenome=None, email=None, dataNascimento=None, password=None, pais=None, estado=None, cidade=None, bairro=None, rua=None, numero=None, complemento=None):
 	usuario.cpf = cpf
+
+	return db.session.commit()
+
+def delete_usuario(usuario):
+	db.session.delete(usuario)
 
 	return db.session.commit()

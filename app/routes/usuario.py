@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Response, jsonify
+from flask import Blueprint, render_template, request, jsonify
 
 from ..controllers.usuario import create_usuario
 from ..controllers.usuario import get_usuario
@@ -12,7 +12,7 @@ def index():
 		return jsonify({"message": "not a json"}), 406
 
 	content = request.get_json()
-
+	
 	created = create_usuario(
 		content['cpf'],
 		content['nome'],
@@ -41,10 +41,10 @@ def usuarioPut():
 	
 	content = request.get_json()
 	
-	usuario = get_usuario(id='12')
+	usuario = get_usuario(cpf=content['cpf'])
 	
 	if usuario == None:
-		return jsonify({"message": "user not found"}), 404
+		return jsonify({"message": "usuario not found"}), 404
 
 	updated = update_usuario(usuario,
 		cpf=content['cpf'],
@@ -69,8 +69,25 @@ def usuarioPut():
 
 @usuario.route('/usuario/<cpf>', methods=['GET'])
 def usuarioGet(cpf):	
-	return 'GET usuario{}'.format(id)
+	usuario = get_usuario(cpf=cpf)
+
+	if usuario == None:
+		return jsonify({"message": "user not found"}), 404
+
+	return jsonify(usuario), 200
 
 @usuario.route('/usuario/<cpf>', methods=['DELETE'])
 def usuarioDelete(cpf):	
-	return 'DELETE usuario{}'.format(id)
+	usuario = get_usuario(cpf=cpf)
+
+	if usuario == None:
+		return jsonify({"message": "user not found"}), 404
+
+	deleted = delete_usuario(usuario)
+
+	if updated:
+		return jsonify({"message": "success"}), 201
+	
+	return jsonify({"message": "error database"}), 507
+
+

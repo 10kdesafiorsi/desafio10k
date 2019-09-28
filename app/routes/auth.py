@@ -4,8 +4,8 @@ auth = Blueprint('auth', __name__, template_folder='templates', static_folder='s
 
 @auth.route('/usuario/login', methods=['POST'])
 def index():
-	return 'POST login'
+	return jsonify({"message": "feature not yet implemented"}), 501
 
 @auth.route('/usuario/logout', methods=['GET'])
 def authLogout():
-	return 'GET logout'
+	return jsonify({"message": "feature not yet implemented"}), 501
